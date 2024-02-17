@@ -9,22 +9,30 @@ import { ShoppingListService } from "../shopping-list/shopping-list.service";
 export class RecipeService {
     recipesChanged = new Subject<Recipe[]>();
 
-    private recipes: Recipe[] = [
-        new Recipe('Ratatouille', 'Good stuff', 'https://images.immediate.co.uk/production/volatile/sites/30/2020/08/chorizo-mozarella-gnocchi-bake-cropped-9ab73a3.jpg?quality=90&resize=556,505', 
-        [  
-            new Ingredient('Carrot', 3),
-            new Ingredient('Pepper', 6),
-            new Ingredient('Cucumber', 3)
-        ]),
-        new Recipe('Pizza', 'Better stuff', 'https://images.immediate.co.uk/production/volatile/sites/30/2020/08/chorizo-mozarella-gnocchi-bake-cropped-9ab73a3.jpg?quality=90&resize=556,505', 
-        [  
-            new Ingredient('Cheese', 6),
-            new Ingredient('Pepper', 3),
-            new Ingredient('Onion', 2)
-        ])
-    ];
+    // private recipes: Recipe[] = [
+    //     new Recipe('Ratatouille', 'Good stuff', 'https://images.immediate.co.uk/production/volatile/sites/30/2020/08/chorizo-mozarella-gnocchi-bake-cropped-9ab73a3.jpg?quality=90&resize=556,505', 
+    //     [  
+    //         new Ingredient('Carrot', 3),
+    //         new Ingredient('Pepper', 6),
+    //         new Ingredient('Cucumber', 3)
+    //     ]),
+    //     new Recipe('Pizza', 'Better stuff', 'https://images.immediate.co.uk/production/volatile/sites/30/2020/08/chorizo-mozarella-gnocchi-bake-cropped-9ab73a3.jpg?quality=90&resize=556,505', 
+    //     [  
+    //         new Ingredient('Cheese', 6),
+    //         new Ingredient('Pepper', 3),
+    //         new Ingredient('Onion', 2)
+    //     ])
+    // ];
+    private recipes: Recipe[] = [];
 
-    constructor(private slService: ShoppingListService){}
+    constructor(private slService: ShoppingListService){
+        
+    }
+
+    setRecipes(recipes: Recipe[]) {
+        this.recipes = recipes;
+        this.recipesChanged.next(this.recipes.slice());
+    }
 
     getRecipes() {
         return this.recipes.slice();
